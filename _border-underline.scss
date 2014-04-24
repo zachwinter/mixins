@@ -3,7 +3,7 @@
 *	Border Underline
 *	=======================================================================
 *	We can't use CSS transitions on text decorations, so here we emulate
-*	text-decoration: underline; with border-bottom. Accepts color, toggles
+*	the underline decoration by using border-bottom. Accepts color, toggles
 *	between hide-border-on-hover and show-border-on-hover, and accepts size
 *	of border.
 *
