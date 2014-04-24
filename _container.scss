@@ -1,18 +1,18 @@
 /*
-*
-*	Container
-*	=======================================================================
-*	Extends the idea of the outer-container mixin by adding a few options.
-*	Padding is included by default, clearfix can be disabled, and we have
-*	the option of 100%-width-of-viewport backgrounds that extend outside   
-*	the container while avoiding <div> soup.
-*
-*	Arbitrary Variables (global things I use)
-*	------------------------------------------------
-*	$outer-padding   20px
-*	$bp-mobile       new-breakpoint(max-width 640px)
-*	$max-width       1280px
-*
+ *
+ *	Container
+ *	=======================================================================
+ *	Extends the idea of the outer-container mixin by adding a few options.
+ *	Padding is included by default, clearfix can be disabled, and we have
+ *	the option of 100%-width-of-viewport backgrounds that extend outside   
+ *	the container while avoiding <div> soup.
+ *
+ *	Arbitrary Variables (global things I use)
+ *	------------------------------------------------
+ *	$outer-padding   20px
+ *	$bp-mobile       new-breakpoint(max-width 640px)
+ *	$max-width       1280px
+ *
 */
 
 @mixin container(

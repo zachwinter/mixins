@@ -1,22 +1,22 @@
 /*
-*
-*	Full
-*	=======================================================================
-*	Forces element to fill its container. Overrides any sort of styling in
-*	in place due to the span-columns mixin. If we pass a breakpoint to it,
-*	it will fill its container at that breakpoint. We also have the option
-*	of adding bottom margin to the element when it fills its container,
-*	which can come in handy for vertical spacing. When "true", margin is
-*	set to flex-gutter().
-*
-*	Examples
-*	--------------------------------
-*	@include full;
-*	@include full($bp-mobile);
-*	@include full($bp-mobile, true);
-*	@include full($bp-mobile, 50px);
-*
-*/
+ *
+ *	Full
+ *	=======================================================================
+ *	Forces element to fill its container. Overrides any sort of styling in
+ *	in place due to the span-columns mixin. If we pass a breakpoint to it,
+ *	it will fill its container at that breakpoint. We also have the option
+ *	of adding bottom margin to the element when it fills its container,
+ *	which can come in handy for vertical spacing. When "true", margin is
+ *	set to flex-gutter().
+ *
+ *	Examples
+ *	--------------------------------
+ *	@include full;
+ *	@include full($bp-mobile);
+ *	@include full($bp-mobile, true);
+ *	@include full($bp-mobile, 50px);
+ *
+ */
 
 @mixin full(
 	$breakpoint : false,

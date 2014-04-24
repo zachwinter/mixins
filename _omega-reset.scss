@@ -1,11 +1,11 @@
 /*
-*
-*	Omega Reset
-*	=======================================================================
-*	Resets margin-right and clear properties of :nth-child so you can break
-*	down grid layouts that utilize the span-columns mixin. 
-*
-*/
+ *
+ *	Omega Reset
+ *	=======================================================================
+ *	Resets margin-right and clear properties of :nth-child so you can break
+ *	down grid layouts that utilize the span-columns mixin. 
+ *
+ */
 
 @mixin omega-reset($nth) {
   &:nth-child(#{$nth})   { margin-right: flex-gutter(); }
