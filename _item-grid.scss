@@ -1,34 +1,34 @@
 /*
 *
-*		Item Grid
-*		=======================================================================
-*		Used for positioning elements that are to be displayed in a grid format
-*		as shown below. Accepts number of columns; also accepts any breakpoints
-*		you've defined. 
+*	Item Grid
+*	=======================================================================
+*	Used for positioning elements that are to be displayed in a grid format
+*	as shown below. Accepts number of columns; also accepts any breakpoints
+*	you've defined. 
 *
-*		[ ]  [ ]  [ ]
+*	[ ]  [ ]  [ ]
 *
-*		[ ]  [ ]  [ ]
+*	[ ]  [ ]  [ ]
 *
-*		[ ]  [ ]  [ ]
-*
-*
-*		Single Declaration (All Breakpoints)
-*		------------------------------------
-*		@include item-grid(3);
+*	[ ]  [ ]  [ ]
 *
 *
-*		Multiple Breakpoints
-*		------------------------------------
-*		@include item-grid((
-*			4, $bp-tablet 3,
-*			   $bp-mobile 2
-*		));
+*	Single Declaration (All Breakpoints)
+*	------------------------------------
+*	@include item-grid(3);
 *
 *
-*		Dependencies
-*		------------------------------------
-*		@mixin omega-reset
+*	Multiple Breakpoints
+*	------------------------------------
+*	@include item-grid((
+*		4, $bp-tablet 3,
+*		   $bp-mobile 2
+*	));
+*
+*
+*	Dependencies
+*	------------------------------------
+*	@mixin omega-reset
 *
 */
 
