@@ -1,0 +1,67 @@
+/*
+*
+*		Item Grid
+*		=======================================================================
+*		Used for positioning elements that are to be displayed in a grid format
+*		as shown below. Accepts number of columns; also accepts any breakpoints
+*		you've defined. 
+*
+*		[ ]  [ ]  [ ]
+*
+*		[ ]  [ ]  [ ]
+*
+*		[ ]  [ ]  [ ]
+*
+*
+*		Single Declaration (All Breakpoints)
+*		------------------------------------
+*		@include item-grid(3);
+*
+*
+*		Multiple Breakpoints
+*		------------------------------------
+*		@include item-grid((
+*			4, $bp-tablet 3,
+*			   $bp-mobile 2
+*		));
+*
+*
+*		Dependencies
+*		------------------------------------
+*		@mixin omega-reset
+*
+*/
+
+@mixin item-grid($gridmap) {
+
+	@if type-of($gridmap) == number { 
+		@include span-columns($grid-columns/$gridmap);
+		@include omega($gridmap*1n); 
+		margin-bottom: flex-gutter();
+	} // End Single Breakpoint
+
+	@if type-of($gridmap) == list {		
+		$init: nth($gridmap, 1);
+		@each $breakpoint in $gridmap {
+			$this: index($gridmap, $breakpoint);
+			@if $this == 1 {
+				@include span-columns($grid-columns/$init);
+				@include omega($init*1n); 
+				margin-bottom: flex-gutter();
+			}  
+			@if $this > 1 {
+				$col: nth($breakpoint, 2); 
+				@include media(nth($breakpoint, 1)){	
+					@if $this == 2 { @include omega-reset($init*1n); }
+					@if $this >= 3 {
+						$last: nth(nth($gridmap, ($this - 1)), 2);
+						@include omega-reset($last*1n);
+					}  
+					@include span-columns($grid-columns/$col);
+					@include omega($col*1n); 
+				}
+			}
+		}
+	} // End Multiple Breakpoints
+
+}

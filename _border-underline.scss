@@ -1,0 +1,28 @@
+/*
+*
+*		Border Underline
+*		=======================================================================
+*		We can't use CSS transitions on text decorations, so here we emulate
+*		text-decoration: underline; with border-bottom. Accepts color, toggles
+*		between hide-border-on-hover and show-border-on-hover, and accepts size
+*		of border.
+*
+*/
+
+@mixin border-underline(
+	$color : #000,
+	$order : true,
+	$size  : 1px
+){
+
+	@if $order == true {
+		border-bottom: $size solid transparent;
+		&:hover { border-color: $color; }
+	} @else {
+		border-bottom: $size solid $color;
+		&:hover { border-color: transparent; }
+	}
+
+	@include transition(color 0.2s ease, border 0.2s ease);
+
+}

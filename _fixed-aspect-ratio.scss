@@ -1,0 +1,27 @@
+/*
+*
+*		Fixed Aspect Ratio
+*		=======================================================================
+*		A mixin for media containers (or other) that require a fixed aspect
+*		ratio in responsive layouts.
+*
+*		Examples
+*		-----------------------------------
+*		@include fixed-aspect-ratio(16, 9);
+*		@include fixed-aspect-ratio(4, 3);
+*
+*/
+
+@mixin fixed-aspect-ratio($w, $h) {
+	display: block;
+	width: 100%;
+	position: relative;
+	height: 0;
+	padding-bottom: $h/$w * 100%;
+	> * {
+		@include position(absolute, 0px 0px 0px 0px);
+		@include size(100%);
+		display: block;
+		border: 0;
+	}
+}

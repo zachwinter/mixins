@@ -1,0 +1,58 @@
+/*
+*
+*		Container
+*		=======================================================================
+*		Extends the idea of the outer-container mixin by adding a few options.
+*		Padding is included by default, clearfix can be disabled, and we have
+*		the option of 100%-width-of-viewport backgrounds that extend outside   
+*		the container while avoiding <div> soup.
+*
+*		Arbitrary Variables (global things I use)
+*		------------------------------------------------
+*		$outer-padding   20px
+*		$bp-mobile       new-breakpoint(max-width 640px)
+*		$max-width       1280px
+*
+*/
+
+@mixin container(
+	$padding         : true,
+	$full-background : false,
+	$clearfix        : true 
+){
+
+	@if $padding == true {
+		padding: { right: $outer-padding; left: $outer-padding; }
+	}
+
+	@if $full-background != false {
+		background: $full-background;
+		@include media(min-width $max-width) {
+			position: relative;
+			> * {
+				position: relative;
+				z-index: 1;
+			}
+			&:before {
+				content: '';
+				display: block;
+				@include position(absolute, 0px -10000px 0px -10000px);
+				@include media($bp-mobile) { @include position(absolute, 0px 0px 0px 0px); }
+				background: $full-background;
+				z-index: 0;
+			}
+		}
+	}
+
+	@if $clearfix == true {
+		&:after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+
+	max-width: $max-width; 
+	margin: { right: auto; left: auto; }
+
+} 
