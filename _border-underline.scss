@@ -1,58 +1,28 @@
 /*
-*
-*	Container
-*	=======================================================================
-*	Extends the idea of the outer-container mixin by adding a few options.
-*	Padding is included by default, clearfix can be disabled, and we have
-*	the option of 100%-width-of-viewport backgrounds that extend outside   
-*	the container while avoiding <div> soup.
-*
-*	Arbitrary Variables (global things I use)
-*	------------------------------------------------
-*	$outer-padding   20px
-*	$bp-mobile       new-breakpoint(max-width 640px)
-*	$max-width       1280px
-*
-*/
+ *
+ *	Border Underline
+ *	=======================================================================
+ *	We cannot use CSS transitions on text decorations, so here we emulate
+ *	the underline decoration by using border-bottom. Accepts color, toggles
+ *	between hide-border-on-hover and show-border-on-hover, and accepts size
+ *	of border.
+ *
+ */
 
-@mixin container(
-	$padding         : true,
-	$full-background : false,
-	$clearfix        : true 
+@mixin border-underline(
+	$color : #000,
+	$order : true,
+	$size  : 1px
 ){
 
-	@if $padding == true {
-		padding: { right: $outer-padding; left: $outer-padding; }
+	@if $order == true {
+		border-bottom: $size solid transparent;
+		&:hover { border-color: $color; }
+	} @else {
+		border-bottom: $size solid $color;
+		&:hover { border-color: transparent; }
 	}
 
-	@if $full-background != false {
-		background: $full-background;
-		@include media(min-width $max-width) {
-			position: relative;
-			> * {
-				position: relative;
-				z-index: 1;
-			}
-			&:before {
-				content: '';
-				display: block;
-				@include position(absolute, 0px -10000px 0px -10000px);
-				@include media($bp-mobile) { @include position(absolute, 0px 0px 0px 0px); }
-				background: $full-background;
-				z-index: 0;
-			}
-		}
-	}
+	@include transition(color 0.2s ease, border 0.2s ease);
 
-	@if $clearfix == true {
-		&:after {
-			content: '';
-			display: table;
-			clear: both;
-		}
-	}
-
-	max-width: $max-width; 
-	margin: { right: auto; left: auto; }
-
-} 
+}
