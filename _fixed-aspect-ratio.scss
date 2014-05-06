@@ -12,16 +12,15 @@
  *
  */
 
-@mixin fixed-aspect-ratio($w, $h) {
+@mixin fixed-aspect-ratio($aspect-ratio-x, $aspect-ratio-y) {
 	display: block;
-	width: 100%;
 	position: relative;
-	height: 0;
-	padding-bottom: $h/$w * 100%;
+	@include size(100% 0px);
+	padding-bottom: $aspect-ratio-y/$aspect-ratio-x * 100%;
 	> * {
+		display: block;
 		@include position(absolute, 0px 0px 0px 0px);
 		@include size(100%);
-		display: block;
 		border: 0;
 	}
 }

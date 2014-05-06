@@ -1,0 +1,13 @@
+/*
+ *
+ *	Show When
+ *	=======================================================================
+ *	Show hidden element at specified breakpoint. Accepts an argument for
+ *	display, where display: block; is the default.
+ *
+ */
+
+@mixin show-when($breakpoint, $display: block) {
+	display: none;
+	@include media($breakpoint) { display: #{$display}; }
+}

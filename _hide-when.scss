@@ -1,0 +1,11 @@
+/*
+ *
+ *	Hide When
+ *	=======================================================================
+ *	Hide element at specified breakpoint.
+ *
+ */
+
+@mixin hide-when($breakpoint) {
+	@include media($breakpoint) { display: none; }
+}
