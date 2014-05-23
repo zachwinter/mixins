@@ -1,0 +1,34 @@
+/*
+ *
+ *	Reset Sticky Footer
+ *	=======================================================================
+ *	At specified breakpoint, undo a sticky footer that's been created using
+ *	this method: css-tricks.com/snippets/css/sticky-footer/
+ *
+ *	Example
+ *	--------------------------------------------
+ *	@include reset-sticky-footer($bp-tablet-sm);
+ *
+ */
+
+@mixin reset-sticky-footer(
+	$breakpoint,
+	$container : '#sticky-footer'
+	$footer    : 'footer'
+){
+	@include media($breakpoint) {
+		html, body {
+			min-height: 0;
+			height: auto;
+		}
+
+		#{$container} {
+			margin: auto;
+			min-height: 0;
+
+			&:after { display: none; }
+		}
+
+		#{$footer} { height: auto; }
+	}
+}

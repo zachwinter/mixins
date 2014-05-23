@@ -1,0 +1,306 @@
+/*
+ *
+ *	FormNorm
+ *	=======================================================================
+ *	Cross-browser form styling / normalization. Styles can be generated and
+ *	saved as placeholders for modular form creation. 
+ *
+ *	---------------------------------------------------------------
+ *	NOTE: Styling of <select> elements and Radio / Checkbox <input>
+ *	      elements requires jQuery + formNorm.js
+ *	---------------------------------------------------------------
+ *
+ *	Mixin accepts the following:
+ *
+ *	$fontSize
+ *	$height
+ *	$color
+ *	$background
+ *	$singleElement
+ *
+ *	$singleElement defaults to "false," thus styling all elements.
+ *	Otherwise, use one of the following strings:
+ *
+ *	"select"        // <select> 
+ *	"text"          // input[type="text"],  textarea
+ *	"radioCheckbox" // input[type="radio"], input[type="checkbox"]
+ *	"submit"        // [type="submit"] (<input> or <button>)
+ *
+ *	For <select> elements and Radio / Checkbox <input> elements, formNorm
+ *	requires a wrapper element. The wrappers should have the following
+ *	data attributes:
+ *
+ *	<div data-form-element="select">
+ *		<select>
+ *			<option>01</option>
+ *			<option>02</option>
+ *			<option>03</option>
+ *		</select>
+ *	</div>
+ *
+ *	<div data-form-element="radio">
+ *		<input type="radio" name="radio" />
+ *	</div>
+ *
+ *	<div data-form-element="checkbox">
+ *		<input type="checkbox" name="checkbox" />
+ *	</div>
+ *
+ *	Examples
+ *	----------------------------------------------------
+ *	@include formNorm(20px, 40px, #fff, #000);
+ *	@include formNorm(20px, 40px, #000, #fff, 'submit');
+ *
+ */
+
+/* 1. Global
+======================================================================================= */
+
+/* 1.1. Variable Declaration
+----------------------------------------------------------------------- */
+$formNorm-fontSize      : null;
+$formNorm-height        : null;
+$formNorm-color         : null;
+$formNorm-background    : null;
+$formNorm-inputPadding  : null;
+$formNorm-singleElement : null;
+$formNorm-lineHeight    : null;
+
+/* 1.2. Reusable Styles
+----------------------------------------------------------------------- */
+@mixin formNorm-inputStyle {
+	display: block;
+	width: 100%; 
+	border: 0;
+	margin: 0;
+	background: $formNorm-background;
+	color: $formNorm-color;
+	font-size: $formNorm-fontSize;
+	line-height: $formNorm-lineHeight;
+	line-height: $formNorm-height \0/ !important; // IE8
+	@include appearance(none);
+	@include transition(background 0.2s ease);
+}
+
+/* 2. Select
+======================================================================================= */
+@mixin formNorm-select {
+
+	%select-container {
+		@include formNorm-inputStyle;
+		position: relative;
+		min-height: $formNorm-height;
+	}
+
+	%select-dropdown {
+		@include position(absolute, 100% 0px 0 0px);
+		width: 100%;
+		display: none;
+		overflow-y: auto !important;
+		list-style-type: none;
+		background: $formNorm-color;
+		color: $formNorm-background;
+		padding: 0;
+		margin: 0;
+
+		a {
+			cursor: pointer;
+			display: block;
+			width: 100%;
+			border: 0;
+			padding: $formNorm-inputPadding;
+			padding: 0 $formNorm-inputPadding \0/ !important; // IE8
+			@include transition(background 0.2s ease, color 0.2s ease);
+
+			&:hover, &.focus {
+				background: $formNorm-background;
+				color: $formNorm-color;
+			}
+		}
+
+		&.transition {
+			display: block;
+			max-height: 0;
+			-webkit-overflow-style: none;
+			-ms-overflow-style: none;
+			overflow-style: none;
+			-webkit-overflow-scrolling: touch;
+			overflow-scrolling: touch;		
+			@include transition-property(max-height);
+			@include transition-timing-function(ease);
+		}
+	}
+
+	%select-button { 
+		display: block;  
+		position: relative; 
+		z-index: 1;
+		cursor: pointer;
+		min-height: $formNorm-height;
+		color: $formNorm-color;
+		border: 0;
+		padding: $formNorm-inputPadding $formNorm-inputPadding*3 $formNorm-inputPadding $formNorm-inputPadding;
+		line-height: $formNorm-lineHeight;
+		padding: 0 $formNorm-inputPadding*3 0 $formNorm-inputPadding \0/ !important; // IE8
+		line-height: $formNorm-height \0/ !important; // IE8
+
+		&:after {
+			@include position(absolute, 0 $formNorm-inputPadding 0 0);
+			content: '\25BC';
+			font-size: .65em;
+		}
+	}
+
+	select {
+		@include position(absolute, 0px 0px 0px 0px);
+		@include size(100%);
+		@include appearance(none);
+		z-index: 0;
+		opacity: 0;
+		-ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+		filter: alpha(opacity = 0);
+		font-size: 20px; // Prevents zooming in on iPhone.
+		display: block;
+	}
+
+	[data-form-element="select"] {
+		@include transition(box-shadow 0.2s ease); 
+		@include appearance(none);
+		border-radius: 0;
+		@extend %select-container;
+	}
+
+	[data-form-element="select-button"]   { @extend %select-button;   }
+
+	[data-form-element="select-dropdown"] { @extend %select-dropdown; }
+
+}
+
+/* 3. Text Input + Textarea
+======================================================================================= */
+@mixin formNorm-text {
+
+	#{$all-text-inputs}, textarea {
+		@include transition(box-shadow 0.2s ease); 
+		@include appearance(none);
+		border-radius: 0;
+		@include formNorm-inputStyle;
+	}
+
+	#{$all-text-inputs} {
+		@include size(100% $formNorm-height);
+		padding: 0 $formNorm-inputPadding;
+	}
+
+	textarea {
+		padding: $formNorm-inputPadding;
+		height: $formNorm-height*3;
+	}
+
+}
+
+/* 4. Radio + Checkbox
+======================================================================================= */ 
+@mixin formNorm-radioCheckbox {
+
+	[data-form-element="radio"],
+	[data-form-element="checkbox"] {
+		position: relative;
+		@include size($formNorm-height/2);
+		background: $formNorm-background;
+		float: left;
+		margin-right: $formNorm-height/4; 
+		border-radius: 100%;
+		@include transition(box-shadow 0.2s ease); 
+		@include appearance(none);
+		border-radius: 0;
+
+		&.selected:after {
+			content: '';
+			display: block;
+			@include size(40%);
+			@include position(absolute, 30% 30% 30% 30%);
+			background: $formNorm-color;
+			border-radius: 100%;
+		}
+
+		input[type="radio"], 
+		input[type="checkbox"] {
+			@include position(absolute, 0px 0px 0px 0px);
+			@include size(100%);
+			opacity: 0;
+			-ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+			filter: alpha(opacity = 0);
+			display: block;
+			z-index: 1;
+		} 
+	}
+
+}
+
+/* 5. Submit
+======================================================================================= */
+@mixin formNorm-submit {
+
+	[type="submit"] {
+		@include transition(box-shadow 0.2s ease); 
+		@include appearance(none);
+		border-radius: 0;
+		@include formNorm-inputStyle;
+		padding: $formNorm-inputPadding;
+		padding: 0 $formNorm-inputPadding \0/ !important; // IE8
+		display: inline-block;
+		width: auto;
+		border-image-width: 0;
+	}
+
+	input[type="submit"]::-moz-focus-inner {
+		margin: -2px;
+		padding: 0;
+		border: 0;
+	}
+
+}
+
+/* 6. @formNorm (init)
+======================================================================================= */
+@mixin formNorm(
+	$fontSize,
+	$height,
+	$color,
+	$background,
+	$singleElement : false
+){
+
+	$formNorm-fontSize      : $fontSize;
+	$formNorm-height        : $height;
+	$formNorm-color         : $color;
+	$formNorm-background    : $background;
+	$formNorm-singleElement : $singleElement;
+	$formNorm-lineHeight    : $formNorm-fontSize + 2;
+	$formNorm-inputPadding  : ($formNorm-height - $formNorm-lineHeight) / 2; 
+
+	@if $singleElement == false {
+		@include formNorm-select;
+		@include formNorm-text;
+		@include formNorm-radioCheckbox;
+		@include formNorm-submit;
+	}
+
+	@if ($singleElement != false) and ($singleElement == "select") { 
+		@include formNorm-select;
+	}
+
+	@if ($singleElement != false) and ($singleElement == "text") { 
+		@include formNorm-text;
+	}
+
+	@if ($singleElement != false) and ($singleElement == "radioCheckbox") { 
+		@include formNorm-radioCheckbox;
+	}
+
+	@if ($singleElement != false) and ($singleElement == "submit") { 
+		@include formNorm-submit;
+	}
+
+}

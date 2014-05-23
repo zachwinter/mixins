@@ -19,6 +19,7 @@
 	$padding         : true,
 	$full-background : false,
 	$clearfix        : true 
+	$position        : relative
 ){
 
 	@if $padding == true {
@@ -28,7 +29,7 @@
 	@if $full-background != false {
 		background: $full-background;
 		@include media(min-width $max-width) {
-			position: relative;
+			position: $position;
 			> * {
 				position: relative;
 				z-index: 1;

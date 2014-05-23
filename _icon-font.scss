@@ -1,0 +1,22 @@
+/*
+ *
+ *	Icon Font
+ *	=======================================================================
+ *	Applies appropriate styles for icon fonts. 
+ *
+ *	---------------------------------------------------------------
+ *	NOTE: Requires variable $icon-font to be set with the name of
+ *	      your icon font (the font-family attribute).
+ *	---------------------------------------------------------------
+ *
+ */
+
+@mixin icon-font($size) {
+	display: inline-block;
+	font: normal #{$size}/#{$size} $icon-font;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	padding: 0;
+	border: 0;
+}

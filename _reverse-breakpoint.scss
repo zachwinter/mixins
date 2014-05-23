@@ -1,0 +1,34 @@
+/*
+ *
+ *	Reverse Breakpoint
+ *	=======================================================================
+ *	A function used to utilized the reverse of a defined breakpoint for a
+ *	media query. Columns definitions are maintained. 
+ *
+ *	Example
+ *	-------------------------------------------------------------
+ *	@include media(reverse-breakpoint($bp-tablet)) {
+ *
+ *		// If $bp-tablet is equal to "max-width 1024px", then these
+ *		// styles will be applied to "min-width 1025px".
+ *
+ *		// If $bp-tablet is equal to "min-width 1024px", then these
+ *		// styles will be applied to "max-width 1024px".
+ *
+ *	}
+ *
+ */
+
+@function reverse-breakpoint($breakpoint) {
+
+	$result: 0;
+
+	@if nth($breakpoint, 1) == 'max-width' {
+		$result: 'min-width', (nth($breakpoint, 2) + 1), nth($breakpoint, 3);
+	} @else {
+		$result: 'max-width', (nth($breakpoint, 2) - 1), nth($breakpoint, 3);
+	}
+
+	@return $result;
+
+}

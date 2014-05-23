@@ -1,0 +1,14 @@
+/*
+ *
+ *	Mobile Scrolling
+ *	=======================================================================
+ *	Enables proper inertia scrolling on mobile.
+ *
+ */
+
+@mixin mobile-scrolling {
+	-ms-overflow-style: auto;
+	overflow-style: auto;
+	-webkit-overflow-scrolling: touch;
+	overflow-scrolling: touch;
+}

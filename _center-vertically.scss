@@ -1,0 +1,17 @@
+/*
+ *
+ *	Center Vertically (IE9+)
+ *	=======================================================================
+ *	Center an element vertically within a parent container. Element must be
+ *	positioned relative or absolute.
+ *
+ *	--------------------------------------------------------------------
+ *	NOTE: Won't work if parent container is being sized with min-height. 
+ *	--------------------------------------------------------------------
+ *
+ */
+
+@mixin center-vertically($position: relative) {
+	@include position($position, 50% 0 0 0);
+	@include transform(translateY(-50%));
+}

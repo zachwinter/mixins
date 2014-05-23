@@ -1,0 +1,66 @@
+/*
+ *
+ *	Scale
+ *	=======================================================================
+ *	Accepts a CSS property, its Desktop value, and its Mobile value. Mixin
+ *	automatically scales the value down (or up) as the site collapses to
+ *  mobile. You can include as many numeric-based CSS properties as you'd
+ *	like. 
+ *	 
+ *	Examples
+ *	----------------------------------------
+ *	@include scale(margin-bottom 50px 20px);
+ *	@include scale(
+ *		font-size   50px 20px,
+ *		line-height 60px 25px
+ *	);
+ *
+ */
+
+@mixin scale($properties...) {
+
+	$prop    : null;
+	$desktop : null;
+	$mobile  : null;
+	$iterate : null;
+	
+	// List of defined breakpoints.
+	$breakpoints : (
+		$bp-container,
+		$bp-tablet,
+		$bp-tablet-sm,
+		$bp-mobile,
+		$bp-mobile-sm
+	);
+
+	// Print each desktop property + value.
+	@each $property in $properties {
+		$prop    : nth($property, 1);
+		$desktop : nth($property, 2);
+
+		#{$prop}: $desktop;
+	}
+
+	// At each breakpoint...
+	@each $breakpoint in $breakpoints {  
+		@include media($breakpoint) {
+
+			// Spit out each property+value for that breakpoint.
+			@each $property in $properties {
+				$prop    : nth($property, 1);
+				$desktop : nth($property, 2);
+				$mobile  : nth($property, 3);
+				$iterate : (($desktop*1) - ($mobile*1)) / (length($breakpoints) - 1);
+
+				// If last breakpoint, use mobile value.
+				@if index($breakpoints, $breakpoint) == length($breakpoints) {
+					#{$prop}: $mobile;
+
+				// Else use iterated value based on index of current breakpoint. 
+				} @else {
+					#{$prop}: ($desktop*1) - ($iterate * index($breakpoints, $breakpoint));
+				}
+			}
+		}
+	}
+}
