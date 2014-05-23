@@ -1,0 +1,19 @@
+/*
+ *
+ *	Fader
+ *	=======================================================================
+ *	Base style for fader.js content fader.
+ *
+ *	https://github.com/zachwinter/fader
+ *
+ */
+
+@mixin fader {
+	@include user-select(none);
+
+	> * {
+		display: none;
+
+		&:first-child { display: block; }
+	}
+}

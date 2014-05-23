@@ -1,0 +1,38 @@
+/*
+ *
+ *	Slider
+ *	=======================================================================
+ *	Base style for iosslider content slider.
+ *
+ *	https://github.com/iosscripts/iosslider
+ *
+ *	---------------------------------------------------------------
+ *	NOTE: Requires @fixed-aspect-ratio.
+ *	---------------------------------------------------------------
+ *
+ */
+
+@mixin slider(
+	$aspect-ratio-x: 2,
+	$aspect-ratio-y: 1
+){
+
+	@include user-select(none);
+	@include fixed-aspect-ratio($aspect-ratio-x, $aspect-ratio-y);
+	overflow: hidden;
+
+	.iosSlider {
+		overflow: hidden;
+		@include size(100% 2000px);
+		@include position(absolute, 0px 0px 0px 0px);
+		position: absolute !important;
+		bottom: 0 !important;
+	}
+
+	.slider { @include size(100%); }
+
+	.slide {
+		@include size(100%); 
+		float: left;
+	}
+}
