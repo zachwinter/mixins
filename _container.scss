@@ -8,17 +8,27 @@
  *	the container while avoiding <div> soup.
  *
  *	Arbitrary Variables (global things I use)
- *	------------------------------------------------
+ *	---------------------------------------------------------------
  *	$outer-padding   20px
- *	$bp-mobile       new-breakpoint(max-width 640px)
- *	$max-width       1280px
+ *	$max-width       1320px
+ *	$bp-desktop      new-breakpoint(min-width ($max-width+1))
+ *  $bp-container    new-breakpoint(max-width $max-width)
  *
-*/
+ *	---------------------------------------------------------------
+ *	NOTE: 100%-width-of-viewport backgrounds require the following:
+ *	
+ *	html, body {
+ *		position: relative;
+ *		@include media($bp-desktop) { overflow-x: hidden; }
+ *	}
+ *	---------------------------------------------------------------
+ *
+ */
 
 @mixin container(
 	$padding         : true,
 	$full-background : false,
-	$clearfix        : true 
+	$clearfix        : true,
 	$position        : relative
 ){
 
@@ -27,22 +37,24 @@
 	}
 
 	@if $full-background != false {
-		background: $full-background;
-		@include media(min-width $max-width) {
+		@include media($bp-desktop) {
 			position: $position;
+
 			> * {
 				position: relative;
 				z-index: 1;
 			}
+
 			&:before {
 				content: '';
 				display: block;
 				@include position(absolute, 0px -10000px 0px -10000px);
-				@include media($bp-mobile) { @include position(absolute, 0px 0px 0px 0px); }
 				background: $full-background;
 				z-index: 0;
 			}
 		}
+
+		@include media($bp-container) { background: $full-background; }
 	}
 
 	@if $clearfix == true {
