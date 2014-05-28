@@ -1,0 +1,13 @@
+/*
+ *
+ *	No Scroll
+ *	=======================================================================
+ *	Use on html + body; prevents document scrolling.
+ *
+ */
+
+@mixin no-scroll {
+	position: fixed;
+	@include size(100%);
+	overflow: hidden;
+}
